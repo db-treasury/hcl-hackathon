@@ -1,6 +1,9 @@
 package com.hcl.hackathon.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,5 +26,15 @@ public class AppConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select().apis((Predicate<RequestHandler>) RequestHandlerSelectors.any())
 				.paths((Predicate<String>) PathSelectors.any()).build();
+	}
+	
+	@Bean 
+	public DataSource getDataSource() { 
+	    DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create(); 
+//	    dataSourceBuilder.driverClassName("com.mysql.jdbc.Driver");
+//	    dataSourceBuilder.url("jdbc:mysql://iassess.hclets.com:61116/hackathon");
+	    dataSourceBuilder.username("demouser"); 
+	    dataSourceBuilder.password("demouser@123"); 
+	    return dataSourceBuilder.build(); 
 	}
 }
